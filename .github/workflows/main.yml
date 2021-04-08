@@ -54,10 +54,7 @@ jobs:
         timeout-minutes: 340
         run: |
           cd source || exit 1
-          export PORT=80
-          chmod 777 start.sh
-          ./start.sh
-      #    docker-compose up
+          docker-compose up
       - name: Workflow Looping
         run: |
           git clone https://github.com/${GITHUB_REPOSITORY} loop
