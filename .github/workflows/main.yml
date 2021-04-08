@@ -41,12 +41,13 @@ jobs:
           df -hlT
           git clone https://${GitHubName}:${{ secrets.GH_TOKEN }}@github.com/${{ secrets.SOURCE }} source
       - name: Compile The Mirroring Docker Container
+        timeout-minutes: 5
         run: |
           cd source || exit 1
           echo "${{ secrets.GH_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
           docker container prune --force || true
           docker-compose build 
-          docker image ls
+          docker-compose up
       - name: running Docker
         timeout-minutes: 340
         continue-on-error: true
