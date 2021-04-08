@@ -9,6 +9,7 @@ on:
 env:
   GitHubMail: "Raj90398525372@gmail.com"
   GitHubName: "Raj52537"
+  Branch: 'beta'
 
 jobs:
   ubuntu:
