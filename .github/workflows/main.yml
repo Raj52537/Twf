@@ -50,6 +50,7 @@ jobs:
         timeout-minutes: 340
         continue-on-error: true
         run: |
+          cd source || exit 1
           docker-compose up
       - name: Workflow Looping
         run: |
