@@ -47,14 +47,24 @@ jobs:
           cd source || exit 1
           echo "${{ secrets.GH_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
           docker container prune --force || true
-          docker-compose build 
-          docker-compose up
+          docker-compose build     
+          sudo -u postgres bash
+          createdb tortk
+          psql
+          ALTER USER postgres with password 'poison';
+          exit
+          exit
+
+          #docker-compose up
       - name: running Docker
         continue-on-error: true
         timeout-minutes: 340
         run: |
           cd source || exit 1
-          docker-compose up
+          export PORT=80
+          chmod 777 start.sh
+          ./start.sh
+      #    docker-compose up
       - name: Workflow Looping
         run: |
           git clone https://github.com/${GITHUB_REPOSITORY} loop
