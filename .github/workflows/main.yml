@@ -4,12 +4,13 @@ name: MirrorBot Environment
 on:
   push:
     branches: [ main ]
-    paths-ignore: 'README.md'
+    paths-ignore: 'looper2.txt'
   workflow_dispatch:
    
 env:
   GitHubMail: ${{ secrets.GitHubMail }}
   GitHubName: ${{ secrets.GitHubName }}
+  Branch: "master"
 
 jobs:
   debug:
@@ -30,7 +31,7 @@ jobs:
 
       - name: Clone The Secret Mirror Repository
         run: |
-          git clone https://${GitHubName}:${{ secrets.GH_TOKEN }}@github.com/${{ secrets.SOURCE }} source
+          git clone https://${GitHubName}:${{ secrets.GH_TOKEN }}@github.com/${{ secrets.SOURCE }} -b ${Branch} source
       - name: Compile The Mirroring Docker Container
         run: |
           cd source || exit 1
